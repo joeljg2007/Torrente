@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Torrente: La Caída del Sistema</title>
+
+    <style>
+        /* RESET */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: #0b0b0b;
+            color: #eaeaea;
+            line-height: 1.6;
+        }
+
+        /* HERO */
+        header.hero {
+            position: relative;
+            height: 100vh;
+            background: linear-gradient(
+                rgba(0,0,0,0.7),
+                rgba(0,0,0,0.9)
+            ), url("fondo.jpg") center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .hero-content {
+            z-index: 2;
+            padding: 20px;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            letter-spacing: 4px;
+            color: #ff6a00;
+            text-shadow: 0 0 20px rgba(255,106,0,0.5);
+        }
+
+        .hero h2 {
+            font-size: 2rem;
+            margin-top: 10px;
+        }
+
+        .tagline {
+            margin: 20px 0;
+            color: #ccc;
+            font-style: italic;
+        }
+
+        .btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 28px;
+            background: #ff6a00;
+            color: #000;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 30px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255,106,0,0.7);
+        }
+
+        /* MAIN */
+        main.container {
+            max-width: 1000px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+
+        /* COVER */
+        .cover {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .cover img {
+            max-width: 100%;
+            border-radius: 12px;
+            border: 2px solid #ff6a00;
+            box-shadow: 0 0 30px rgba(255,106,0,0.4);
+        }
+
+        .note {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+
+        /* SECTIONS */
+        section {
+            margin-bottom: 60px;
+        }
+
+        h3 {
+            color: #ff6a00;
+            margin-bottom: 20px;
+            border-left: 4px solid #ff6a00;
+            padding-left: 12px;
+            font-size: 1.5rem;
+        }
+
+        /* FEATURES */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: #141414;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #222;
+            text-align: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 20px rgba(255,106,0,0.4);
+        }
+
+        /* FOOTER */
+        footer {
+            text-align: center;
+            padding: 25px;
+            background: #000;
+            color: #777;
+            font-size: 0.85rem;
+            border-top: 1px solid #222;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="hero">
+        <div class="hero-content">
+            <h1>TORRENTE</h1>
+            <h2>La Caída del Sistema</h2>
+            <p class="tagline">Acción, sátira y caos sin censura</p>
+            <a href="#about" class="btn">Descubrir el juego</a>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <section class="cover">
+            <img src="portada.jpg" alt="Portada del videojuego Torrente La Caída del Sistema">
+            <p class="note">Imagen conceptual del videojuego</p>
+        </section>
+
+        <section id="about">
+            <h3>Sobre el videojuego</h3>
+            <p>
+                <strong>Torrente: La Caída del Sistema</strong> España, o más bien Españistán, está secuestrada por El Presidente del Sistema, un político ficticio corrupto, chulo y aficionado a la noche, que gobierna el país mientras se llena los bolsillos y se esconde detrás de discursos vacíos. Nadie consigue pillarlo porque siempre va un paso por delante hasta que entra en juego José Luis Torrente. Todo empieza en el piso de Torrente, donde Torrente recibe una videollamada inesperada de Donald Trump, un magnate extranjero con tupé imposible y ego infinito, que le dice que el Sistema está metiendo mano en negocios internacionales. Entre insultos, halagos mutuos y teorías conspiranoicas, ambos acuerdan un plan: desenmascarar al Presidente usando sus propios vicios. Torrente baja al Bar del barrio para recopilar información real, porque ahí es donde habla la calle, y descubre que el Presidente se mueve con total impunidad gracias a contactos en la Comisaría. Torrente se infiltra en la Comisaría a su manera, liándola más de lo que ayuda, pero consigue pruebas falsas, verdaderas y medio inventadas que apuntan a un punto clave: el Presidente se reúne en secreto en un Videoclub antiguo, usado como tapadera para tratos sucios. Allí, Torrente confirma que el Presidente no puede resistirse a dos cosas: el poder y el sexo. El plan final se ejecuta en el Club de Striptease, donde Torrente prepara una trampa ridícula pero efectiva con ayuda de Big Don desde el extranjero, filtrando información y provocando que el Presidente acuda confiado. Todo se desmadra, la verdad sale a la luz y el Sistema empieza a caerse a pedazos. Torrente huye en el Coche de Torrente, perseguido por nadie en concreto, mientras el país entero se ríe del Presidente y deja de tomarlo en serio. Al final, el corrupto cae no porque lo arresten, sino porque pierde lo único que tenía: el control del relato. Españistán no se arregla del todo, pero al menos se libera del farsante. Torrente no se convierte en un héroe ejemplar, pero sí en la pesadilla definitiva del poder corrupto.
+
+
+            </p>
+        </section>
+
+        <section class="features">
+            <h3>Características principales</h3>
+            <div class="features-grid">
+                <div class="card"> Acción explosiva estilo arcade</div>
+                <div class="card"> Misiones caóticas y satíricas</div>
+                <div class="card"> Escenarios urbanos españoles</div>
+                <div class="card"> Humor irreverente y provocador</div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>© 2026 · Proyecto ficticio · Videojuego conceptual</p>
+        img
+    </footer>
+
+</body>
+</html>
