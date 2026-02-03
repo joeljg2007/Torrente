@@ -1,194 +1,373 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Torrente: La Caída del Sistema</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Torrente: La Caída del Sistema</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* =====================
+   VARIABLES Y RESET
+===================== */
+:root {
+    --accent: #ff6a00;
+    --dark: #0b0b0b;
+    --dark2: #141414;
+    --text: #eaeaea;
+    --muted: #9a9a9a;
+    --transition: 0.3s ease-in-out;
+}
 
-    <style>
-        /* RESET */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-        body {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            background-color: #0b0b0b;
-            color: #eaeaea;
-            line-height: 1.6;
-        }
+body {
+    font-family: 'Roboto', sans-serif;
+    background: var(--dark);
+    color: var(--text);
+    overflow-x: hidden;
+}
 
-        /* HERO */
-        header.hero {
-            position: relative;
-            height: 100vh;
-            background: linear-gradient(
-                rgba(0,0,0,0.7),
-                rgba(0,0,0,0.9)
-            ), url("fondo.jpg") center/cover no-repeat;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-        }
+/* =====================
+   PRELOADER LENTO 360°
+===================== */
+#preloader {
+    position: fixed;
+    inset: 0;
+    background: var(--dark);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    flex-direction: column;
+}
 
-        .hero-content {
-            z-index: 2;
-            padding: 20px;
-        }
+#preloader h1 {
+    color: var(--accent);
+    font-size: 3rem;
+    text-shadow: 0 0 25px rgba(255,106,0,0.7);
+    animation: rotate360 10s linear infinite; /* giro lento de 10 segundos */
+}
 
-        .hero h1 {
-            font-size: 4rem;
-            letter-spacing: 4px;
-            color: #ff6a00;
-            text-shadow: 0 0 20px rgba(255,106,0,0.5);
-        }
+/* Rotación 360° lenta */
+@keyframes rotate360 {
+    0% { transform: rotateY(0deg); }
+    100% { transform: rotateY(360deg); }
+}
 
-        .hero h2 {
-            font-size: 2rem;
-            margin-top: 10px;
-        }
+/* =====================
+   NAVBAR
+===================== */
+nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: rgba(11,11,11,0.95);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 50px;
+    z-index: 1000;
+    transition: background var(--transition);
+}
 
-        .tagline {
-            margin: 20px 0;
-            color: #ccc;
-            font-style: italic;
-        }
+nav.scrolled {
+    background: rgba(11,11,11,1);
+}
 
-        .btn {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 12px 28px;
-            background: #ff6a00;
-            color: #000;
-            text-decoration: none;
-            font-weight: bold;
-            border-radius: 30px;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
+nav a.logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--accent);
+    text-decoration: none;
+}
 
-        .btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 20px rgba(255,106,0,0.7);
-        }
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 25px;
+}
 
-        /* MAIN */
-        main.container {
-            max-width: 1000px;
-            margin: 60px auto;
-            padding: 0 20px;
-        }
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color var(--transition);
+}
 
-        /* COVER */
-        .cover {
-            text-align: center;
-            margin-bottom: 60px;
-        }
+nav ul li a:hover {
+    color: var(--accent);
+}
 
-        .cover img {
-            max-width: 100%;
-            border-radius: 12px;
-            border: 2px solid #ff6a00;
-            box-shadow: 0 0 30px rgba(255,106,0,0.4);
-        }
+/* =====================
+   HERO PROFESIONAL
+===================== */
+.hero {
+    height: 100vh;
+    background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.8)),
+                url("fondo.jpg") center/cover no-repeat fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+    overflow: hidden;
+    padding: 0 20px;
+}
 
-        .note {
-            margin-top: 10px;
-            font-size: 0.9rem;
-            color: #aaa;
-        }
+.hero h1 {
+    font-size: clamp(3rem, 8vw, 5rem);
+    color: var(--accent);
+    text-shadow: 0 0 40px rgba(255,106,0,0.7);
+    margin-bottom: 15px;
+    opacity: 0;
+    transform: translateY(-50px);
+    animation: heroEntry 1s forwards 0.5s;
+}
 
-        /* SECTIONS */
-        section {
-            margin-bottom: 60px;
-        }
+.hero h2 {
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    color: #fff;
+    margin-bottom: 20px;
+    opacity: 0;
+    transform: translateY(-30px);
+    animation: heroEntry 1s forwards 1s;
+}
 
-        h3 {
-            color: #ff6a00;
-            margin-bottom: 20px;
-            border-left: 4px solid #ff6a00;
-            padding-left: 12px;
-            font-size: 1.5rem;
-        }
+.hero p {
+    font-size: 1.2rem;
+    color: var(--muted);
+    margin-bottom: 30px;
+    opacity: 0;
+    transform: translateY(-20px);
+    animation: heroEntry 1s forwards 1.5s;
+}
 
-        /* FEATURES */
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
-        }
+.hero .btn {
+    background: var(--accent);
+    color: #000;
+    padding: 16px 45px;
+    border-radius: 50px;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 0 50px rgba(255,106,0,0.6);
+    transition: transform var(--transition), box-shadow var(--transition);
+    opacity: 0;
+    transform: translateY(-20px);
+    animation: heroEntry 1s forwards 2s;
+}
 
-        .card {
-            background: #141414;
-            padding: 20px;
-            border-radius: 12px;
-            border: 1px solid #222;
-            text-align: center;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
+.hero .btn:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 0 60px rgba(255,106,0,0.9);
+}
 
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 0 20px rgba(255,106,0,0.4);
-        }
+/* Entrada hero */
+@keyframes heroEntry {
+    to { opacity: 1; transform: translateY(0); }
+}
 
-        /* FOOTER */
-        footer {
-            text-align: center;
-            padding: 25px;
-            background: #000;
-            color: #777;
-            font-size: 0.85rem;
-            border-top: 1px solid #222;
-        }
-    </style>
+/* =====================
+   MAIN SECTIONS
+===================== */
+main {
+    max-width: 1200px;
+    margin: auto;
+    padding: 100px 20px 60px;
+}
+
+/* Fade-in animation */
+.fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 1s ease, transform 1s ease;
+}
+
+.fade-in.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* COVER */
+.cover {
+    text-align: center;
+    margin-bottom: 80px;
+}
+
+.cover img {
+    width: 100%;
+    max-width: 900px;
+    border-radius: 20px;
+    border: 3px solid var(--accent);
+    box-shadow: 0 0 60px rgba(255,106,0,0.5);
+}
+
+.cover span {
+    display: block;
+    margin-top: 12px;
+    color: #aaa;
+}
+
+/* ABOUT */
+section h3 {
+    font-size: 2rem;
+    color: var(--accent);
+    margin-bottom: 25px;
+    border-left: 5px solid var(--accent);
+    padding-left: 15px;
+}
+
+/* FEATURES */
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 25px;
+}
+
+.card {
+    background: linear-gradient(180deg, var(--dark2), var(--dark));
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+    border: 1px solid #222;
+    transition: transform var(--transition), box-shadow var(--transition), background 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 0 60px rgba(255,106,0,0.45);
+    background: linear-gradient(180deg, #1f1f1f, #0f0f0f);
+}
+
+/* TRAILER */
+.trailer {
+    text-align: center;
+    margin: 80px 0;
+}
+
+.trailer iframe {
+    width: 100%;
+    max-width: 800px;
+    height: 450px;
+    border-radius: 15px;
+    box-shadow: 0 0 50px rgba(255,106,0,0.5);
+}
+
+/* FOOTER */
+footer {
+    background: #000;
+    padding: 40px 20px;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #777;
+    border-top: 1px solid #222;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px){
+    nav ul { gap: 15px; }
+    .hero h1 { font-size: 3rem; }
+    .hero h2 { font-size: 1.5rem; }
+    .trailer iframe { height: 250px; }
+}
+
+</style>
 </head>
-
 <body>
 
-    <header class="hero">
-        <div class="hero-content">
-            <h1>TORRENTE</h1>
-            <h2>La Caída del Sistema</h2>
-            <p class="tagline">Acción, sátira y caos sin censura</p>
-            <a href="#about" class="btn">Descubrir el juego</a>
+<!-- PRELOADER -->
+<div id="preloader">
+    <h1>Torrente: La Caída del Sistema</h1>
+</div>
+
+<!-- NAVBAR -->
+<nav>
+    <a href="#" class="logo">TORRENTE</a>
+    <ul>
+        <li><a href="#about">Sobre</a></li>
+        <li><a href="#features">Características</a></li>
+        <li><a href="#trailer">Trailer</a></li>
+    </ul>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+    <h1>TORRENTE</h1>
+    <h2>La Caída del Sistema</h2>
+    <p>Acción, sátira y caos sin censura</p>
+    <a href="#about" class="btn">Ver el juego</a>
+</header>
+
+<main>
+    <section class="cover fade-in">
+        <img src="portada.jpg" alt="Portada del videojuego Torrente">
+        <span>Imagen conceptual del videojuego</span>
+    </section>
+
+    <section id="about" class="fade-in">
+        <h3>Sobre el juego</h3>
+        <p>
+            <strong>Torrente: La Caída del Sistema</strong> es un videojuego de acción y sátira,
+            ambientado en una España al límite. Humor negro, misiones extremas y estilo irreverente
+            ofrecen una experiencia única.
+        </p>
+    </section>
+
+    <section id="features" class="fade-in">
+        <h3>Características</h3>
+        <div class="features-grid">
+            <div class="card">🔥 Acción directa y explosiva</div>
+            <div class="card">🎮 Gameplay arcade sin filtros</div>
+            <div class="card">🇪🇸 Escenarios urbanos reconocibles</div>
+            <div class="card">😈 Humor provocador y gamberro</div>
         </div>
-    </header>
+    </section>
 
-    <main class="container">
+    <section id="trailer" class="trailer fade-in">
+        <h3>Trailer</h3>
+        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+        title="Trailer del videojuego" frameborder="0" allowfullscreen></iframe>
+    </section>
+</main>
 
-        <section class="cover">
-            <img src="portada.jpg" alt="Portada del videojuego Torrente La Caída del Sistema">
-            <p class="note">Imagen conceptual del videojuego</p>
-        </section>
+<footer>
+    © 2026 · Proyecto ficticio · Videojuego conceptual | Diseñado profesionalmente
+</footer>
 
-        <section id="about">
-            <h3>Sobre el videojuego</h3>
-            <p>
-                <strong>Torrente: La Caída del Sistema</strong> España, o más bien Españistán, está secuestrada por El Presidente del Sistema, un político ficticio corrupto, chulo y aficionado a la noche, que gobierna el país mientras se llena los bolsillos y se esconde detrás de discursos vacíos. Nadie consigue pillarlo porque siempre va un paso por delante hasta que entra en juego José Luis Torrente. Todo empieza en el piso de Torrente, donde Torrente recibe una videollamada inesperada de Donald Trump, un magnate extranjero con tupé imposible y ego infinito, que le dice que el Sistema está metiendo mano en negocios internacionales. Entre insultos, halagos mutuos y teorías conspiranoicas, ambos acuerdan un plan: desenmascarar al Presidente usando sus propios vicios. Torrente baja al Bar del barrio para recopilar información real, porque ahí es donde habla la calle, y descubre que el Presidente se mueve con total impunidad gracias a contactos en la Comisaría. Torrente se infiltra en la Comisaría a su manera, liándola más de lo que ayuda, pero consigue pruebas falsas, verdaderas y medio inventadas que apuntan a un punto clave: el Presidente se reúne en secreto en un Videoclub antiguo, usado como tapadera para tratos sucios. Allí, Torrente confirma que el Presidente no puede resistirse a dos cosas: el poder y el sexo. El plan final se ejecuta en el Club de Striptease, donde Torrente prepara una trampa ridícula pero efectiva con ayuda de Big Don desde el extranjero, filtrando información y provocando que el Presidente acuda confiado. Todo se desmadra, la verdad sale a la luz y el Sistema empieza a caerse a pedazos. Torrente huye en el Coche de Torrente, perseguido por nadie en concreto, mientras el país entero se ríe del Presidente y deja de tomarlo en serio. Al final, el corrupto cae no porque lo arresten, sino porque pierde lo único que tenía: el control del relato. Españistán no se arregla del todo, pero al menos se libera del farsante. Torrente no se convierte en un héroe ejemplar, pero sí en la pesadilla definitiva del poder corrupto.
+<script>
+// Preloader lento 10s mínimo
+window.addEventListener("load", () => {
+    const preloader = document.getElementById("preloader");
+    // mantener al menos 10s
+    setTimeout(() => {
+        preloader.style.opacity = "0";
+        preloader.style.transition = "opacity 0.5s ease";
+        setTimeout(() => preloader.style.display = "none", 500);
+    }, 10000); // 10 segundos
+});
 
+// Scroll fade-in
+const faders = document.querySelectorAll('.fade-in');
+const appearOptions = { threshold: 0.2, rootMargin: "0px 0px -50px 0px" };
+const appearOnScroll = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+        if(!entry.isIntersecting) return;
+        entry.target.classList.add('show');
+        observer.unobserve(entry.target);
+    });
+}, appearOptions);
+faders.forEach(fader => appearOnScroll.observe(fader));
 
-            </p>
-        </section>
-
-        <section class="features">
-            <h3>Características principales</h3>
-            <div class="features-grid">
-                <div class="card"> Acción explosiva estilo arcade</div>
-                <div class="card"> Misiones caóticas y satíricas</div>
-                <div class="card"> Escenarios urbanos españoles</div>
-                <div class="card"> Humor irreverente y provocador</div>
-            </div>
-        </section>
-
-    </main>
-
-    <footer>
-        <p>© 2026 · Proyecto ficticio · Videojuego conceptual</p>
-        img
-    </footer>
+// Navbar scroll effect
+const nav = document.querySelector('nav');
+window.addEventListener('scroll', () => {
+    if(window.scrollY > 50) nav.classList.add('scrolled');
+    else nav.classList.remove('scrolled');
+});
+</script>
 
 </body>
 </html>
